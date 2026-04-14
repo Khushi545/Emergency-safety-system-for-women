@@ -70,6 +70,8 @@ export default function HomePage() {
         longitude: location?.lng || null,
         mapsLink: location ? `https://www.google.com/maps?q=${location.lat},${location.lng}` : null,
         evidenceUrls: [],
+        triggerMethod: "button",
+        locationAccuracy: null, // We'll update this if available
       };
 
       const docRef = await addDoc(collection(db, "alerts"), alertData);
@@ -156,6 +158,17 @@ export default function HomePage() {
               <button 
                 onClick={() => {
                   if (watchId.current !== null) navigator.geolocation.clearWatch(watchId.current);
+                  
+                  // Calculate duration for analytics
+                  if (currentAlertId) {
+                    const alertDoc = doc(db, "alerts", currentAlertId);
+                    // Assuming there's a record of when it started, but we just set it to now for resolution
+                    updateDoc(alertDoc, { 
+                      status: "resolved", 
+                      resolvedAt: serverTimestamp(),
+                    });
+                  }
+
                   setStatus("idle");
                   setCurrentAlertId(null);
                 }}

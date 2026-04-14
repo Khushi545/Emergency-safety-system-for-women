@@ -65,11 +65,16 @@ export async function POST(req: Request) {
 
     await Promise.all(notifications);
 
-    // 3. Update alert doc
     await db.collection("alerts").doc(alertId).update({
       contactsNotifiedCount: contacts.length,
       notificationsSent: true,
       lastUpdated: new Date().toISOString()
+    });
+
+    // 4. Update User Stats for Analytics
+    await db.collection("users").doc(userId).update({
+      totalAlerts: (userData?.totalAlerts || 0) + 1,
+      lastActive: new Date().toISOString()
     });
 
     return NextResponse.json({ success: true });

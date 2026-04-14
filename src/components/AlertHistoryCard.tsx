@@ -14,7 +14,7 @@ import {
   Trash2
 } from "lucide-react";
 import { db } from "@/lib/firebase";
-import { doc, updateDoc, arrayRemove } from "firebase/firestore";
+import { doc, updateDoc, arrayRemove, serverTimestamp } from "firebase/firestore";
 import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
 
@@ -31,7 +31,10 @@ export default function AlertHistoryCard({ alert }: AlertHistoryCardProps) {
   const resolveAlert = async (e: React.MouseEvent) => {
     e.stopPropagation();
     try {
-      await updateDoc(doc(db, "alerts", alert.id), { status: "resolved" });
+      await updateDoc(doc(db, "alerts", alert.id), { 
+        status: "resolved",
+        resolvedAt: serverTimestamp(),
+      });
       setStatus("resolved");
     } catch (error) {
       console.error("Resolve error", error);

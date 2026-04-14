@@ -12,7 +12,8 @@ import {
   LogOut, 
   ChevronLeft, 
   ChevronRight,
-  ShieldAlert
+  ShieldAlert,
+  BarChart2
 } from "lucide-react";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
@@ -20,6 +21,7 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { icon: Home, label: "Safety Home", href: "/home" },
+  { icon: BarChart2, label: "Analytics", href: "/analytics" },
   { icon: Users, label: "Emergency Contacts", href: "/contacts" },
   { icon: History, label: "Alert History", href: "/history" },
   { icon: User, label: "My Profile", href: "/profile" },
