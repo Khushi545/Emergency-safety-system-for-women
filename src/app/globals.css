@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #f9f7ff;
+  --color-foreground: #2d2040;
+  
+  --color-primary: #9b7fd4;
+  --color-primary-light: #ede8fb;
+  
+  --color-secondary: #ff4d4d;
+  --color-secondary-dark: #dc2626;
+  
+  --color-accent-active: #f9c8d4;
+  --color-accent-resolved: #a8d8b9;
+  
+  --color-text-primary: #2d2040;
+  --color-text-secondary: #7b6a9b;
+  
+  --color-card: #ffffff;
+  --color-card-border: #e9e4f7;
+
+  --radius-2xl: 16px;
+  --shadow-premium: 0 4px 20px rgba(155, 127, 212, 0.12);
+  
+  --font-poppins: "Poppins", sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    font-family: var(--font-poppins);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+}
+
+.sos-button-ripple {
+  @apply absolute inset-0 rounded-full border-2 border-secondary opacity-0;
+}
+
+.animate-ripple {
+  animation: ripple 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
